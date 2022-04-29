@@ -1,0 +1,7 @@
+#txt_comentario{
+    resize: none;
+};
+.selected {
+    background-color: #529DCB;
+    color: white;
+};
