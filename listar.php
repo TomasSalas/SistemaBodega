@@ -76,21 +76,23 @@
                         <tbody>
                             <?php
                             include_once 'PHP/conexion.php';
-                            $sql = "SELECT * FROM productos";
+                            $sql = "SELECT * FROM productos where estado = 1";
                             $result = $conexion -> query($sql);
-                            while($row = $result -> fetch_assoc()){
-                                echo "<tr>";
-                                echo "<td>". $row["codigo"]."</td>";
-                                echo "<td>". $row["nom_producto"]."</td>";
-                                echo "<td>". $row["cant_producto"]."</td>";
-                                echo "<td>". $row["precio_compra"]."</td>";
-                                echo "<td>". $row["precio_venta"]."</td>";
-                                echo "<td>". $row["comen_producto"]."</td>";
-                                echo "<td>" ."<button type='button' class='btn btn-warning btn_editar'id='btn_editar' data-bs-toggle='modal' data-bs-target='#staticBackdrop'>Editar</button>"."</td>";
-                                echo "</td>";
-                                echo "</tr>";
-                            }
                             ?>
+                            <?php foreach ($result as $row) : ?>
+                                <tr>
+                                <td><?php echo $row['codigo'] ?></td>
+                                <td><?php echo $row['nom_producto'] ?></td>
+                                <td><?php echo $row['cant_producto'] ?></td>
+                                <td><?php echo "$" . number_format($row['precio_compra'], 0, ',', '.'); ?></td>
+                                <td><?php echo "$" . number_format($row['precio_venta'], 0, ',', '.');?></td>
+                                <td><?php echo $row['comen_producto'] ?></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning btn_editar"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btn_editar">Editar</button>
+                                    <button type="button" class="btn btn-danger btn_eliminar" id="btn_eliminar" data-id="<?php echo($row['codigo']);?>">Eliminar</button>
+                                </td>
+                                </tr>
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>
