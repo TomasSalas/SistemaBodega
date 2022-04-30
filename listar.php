@@ -18,8 +18,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Datatables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/scroller/2.0.5/css/scroller.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/scroller/2.0.5/js/dataTables.scroller.min.js  "></script>
     <!-- Locales -->
     <script src="JS/main.js" type=" text/javascript"></script>
     <link rel="stylesheet" href="CSS/main.css">
@@ -49,61 +55,42 @@
     </nav>
 
     <div class="d-flex justify-content-center">
-        <div class="col-md-8 p-5">
+        <div class="col-md-10 p-5">
             <div class="card">
                 <div class="card-header d-flex justify-content-center">
                     <h2>Lista de productos en bodega</h2>
                 </div>
                 <div class="card-body">
-                    <table class="table" id="table_listar">
+                    <table class="table display nowrap" id="table_listar">
                         <thead>
                             <tr>
                                 <th scope="col">Codigo Producto</th>
                                 <th scope="col">Nombre Producto</th>
                                 <th scope="col">Cantidad Producto</th>
+                                <th scope="col">Precio Compra</th>
+                                <th scope="col">Precio Venta</th>
+                                <th scope="col">Comentario</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn_editar" data-id='<?php echo "TomasSalas"?>' id="btn_editar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button class="btn btn-danger" id="btn_borrar">
-                                        <i class="fa-solid fa-ban"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn_editar" data-id='<?php echo "TomasSalas"?>' id="btn_editar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button class="btn btn-danger" id="btn_borrar">
-                                        <i class="fa-solid fa-ban"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn_editar" data-id='<?php echo "TomasSalas"?>' id="btn_editar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button class="btn btn-danger" id="btn_borrar">
-                                        <i class="fa-solid fa-ban"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php
+                            include_once 'PHP/conexion.php';
+                            $sql = "SELECT * FROM productos";
+                            $result = $conexion -> query($sql);
+                            while($row = $result -> fetch_assoc()){
+                                echo "<tr>";
+                                echo "<td>". $row["codigo"]."</td>";
+                                echo "<td>". $row["nom_producto"]."</td>";
+                                echo "<td>". $row["cant_producto"]."</td>";
+                                echo "<td>". $row["precio_compra"]."</td>";
+                                echo "<td>". $row["precio_venta"]."</td>";
+                                echo "<td>". $row["comen_producto"]."</td>";
+                                echo "<td>" ."<button type='button' class='btn btn-warning btn_editar'id='btn_editar' data-bs-toggle='modal' data-bs-target='#staticBackdrop'>Editar</button>"."</td>";
+                                echo "</td>";
+                                echo "</tr>";
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -120,11 +107,33 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" id="txt_edit_cod">
+                    <label>Codigo Producto</label>
+                    <input type="text" class="form-control" id="txt_edit_cod" disabled>
                 </div>
+                <div class="modal-body">
+                    <label>Nombre Producto</label>
+                    <input type="text" class="form-control" id="txt_edit_nom">
+                </div>
+                <div class="modal-body">
+                    <label>Cantidad Producto</label>
+                    <input type="number" class="form-control" id="txt_edit_cant">
+                </div>
+                <div class="modal-body">
+                    <label>Precio Compra</label>
+                    <input type="number" class="form-control" id="txt_edit_precio_compra">
+                </div>
+                <div class="modal-body">
+                    <label>Precio Venta</label>
+                    <input type="number" class="form-control" id="txt_edit_precio_venta">
+                </div>
+                <div class="modal-body">
+                    <label>Comentario Producto</label>
+                    <input type="text" class="form-control" id="txt_edit_coment">
+                </div>
+                <br>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-warning">Editar Producto</button>
+                    <button type="button" id="btn_editar_bd" class="btn btn-warning btn_editar_bd">Editar Producto</button>
                 </div>
             </div>
         </div>

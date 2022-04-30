@@ -55,23 +55,31 @@
                 <div class="card-body">
                     <form>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="txt_codigo" placeholder="Codigo">
+                            <input type="text" class="form-control" id="txt_codigo" placeholder="Codigo" required>
                         </div>
                         <br>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="txt_nombre" placeholder="Nombre Producto">
+                            <input type="text" class="form-control" id="txt_nombre" placeholder="Nombre Producto" required>
                         </div>
                         <br>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="txt_cantidad" placeholder="Cantidad Producto">
+                            <input type="number" class="form-control" id="txt_cantidad" placeholder="Cantidad Producto" required>
                         </div>
                         <br>
                         <div class="form-group">
-                            <textarea class="form-control" id="txt_comentario" placeholder="Comentario Producto" rows="5"></textarea>
+                            <input type="number" class="form-control" id="txt_precio_compra" placeholder="Precio Compra" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="txt_precio_venta" placeholder="Precio Venta" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <textarea class="form-control" id="txt_comentario" placeholder="Comentario Producto" rows="5" required></textarea>
                         </div>
                         <br>
                         <div class="form-group d-flex justify-content-center">
-                            <button class="btn btn-success btn_guardar" id="btn_guardar">Guardar <i class="fa-solid fa-floppy-disk"></i> </button>
+                            <button type="button" class="btn btn-success btn_guardar" id="btn_guardar">Guardar <i class="fa-solid fa-floppy-disk"></i> </button>
                         </div>
                     </form>
                 </div>
