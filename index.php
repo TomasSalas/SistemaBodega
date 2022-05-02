@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +28,7 @@
 
 <body>
     <div class="d-flex justify-content-center">
-        <div class="col-md-6 p-5">
+        <div class="col-md-8 p-5">
             <div class="card">
                 <div class="card-header d-flex justify-content-center">
                     <h2>Login Bodega</h2>
@@ -34,11 +36,11 @@
                 <div class="card-body">
                     <form>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="txt_usuario" placeholder="Usuario">
+                            <input type="text" class="form-control" name ="txt_usuario" id="txt_usuario" placeholder="Usuario">
                         </div>
                         <br>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="txt_pass" placeholder="Contraseña">
+                            <input type="password" class="form-control" name="txt_pass" id="txt_pass" placeholder="Contraseña">
                         </div>
                         <br>
                         <div class="form-group d-flex justify-content-center">

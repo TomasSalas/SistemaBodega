@@ -1,33 +1,7 @@
 var table_reload;
 var codigo = "";
 
-login = function(){
-    var username = $("#txt_usuario").val();
-    var password = $("#txt_pass").val();
-    if(username == "" && password == ""){
-        Swal.fire(
-            'Ingrese Datos',
-            'Los campos no pueden estar vacios!',
-            'error'
-        );
-    }else{
-        if(username == 'admin' && password == 'admin'){
-            Swal.fire(
-                'Ingreso Correcto',
-                'Bienvenido al sistema',
-                'success'
-            ).then(function(){  window.location.href = "guardar.php"; });
-        }
-        else{
-            Swal.fire(
-                'Ingreso Incorrecto',
-                'Credenciales incorrectas',
-                'warning'
-            );
-        }
-    }
-};
-function selected(){
+function selected() {
     table_reload = $('#table_listar').DataTable({
         "language": {
             search: "Buscar",
@@ -35,13 +9,13 @@ function selected(){
         },
     });
 };
-function colorear (){
-    $('#table_listar tbody').on('click', 'tr', function() {
+function colorear() {
+    $('#table_listar tbody').on('click', 'tr', function () {
         $('tr').removeClass('selected');
         this.classList.toggle("selected");
         var data = table_reload.row(this).data();
         codigo = data[0];
-        cargar_editar(codigo); 
+        cargar_editar(codigo);
     });
 }
 function cargar_editar() {
@@ -49,8 +23,8 @@ function cargar_editar() {
         url: "PHP/cargar_edit.php",
         type: "POST",
         dataType: "JSON",
-        data: {codigo:codigo},
-        success: function(data){
+        data: { codigo: codigo },
+        success: function (data) {
             document.getElementById("txt_edit_cod").value = data.codigo;
             document.getElementById("txt_edit_nom").value = data.nombre;
             document.getElementById("txt_edit_cant").value = data.cantidad;
@@ -77,16 +51,16 @@ function guardar() {
             precio_compra: precio_compra,
             precio_venta: precio_venta,
             comentario: comentario
-        }, 
-        success: function(data){
-            if(data == 1){
+        },
+        success: function (data) {
+            if (data == 1) {
                 Swal.fire(
                     'Ingreso Correcto',
                     'Productos Registrados Exitosamente',
                     'success'
                 );
                 limpiar();
-            }else{
+            } else {
                 Swal.fire(
                     'Ingreso Incorrecto',
                     'Error al registrar productos',
@@ -97,7 +71,7 @@ function guardar() {
         }
     });
 }
-function limpiar(){
+function limpiar() {
     document.getElementById("txt_codigo").value = "";
     document.getElementById("txt_nombre").value = "";
     document.getElementById("txt_cantidad").value = "";
@@ -105,14 +79,14 @@ function limpiar(){
     document.getElementById("txt_precio_venta").value = "";
     document.getElementById("txt_comentario").value = "";
 }
-function editar(){
+function editar() {
     var codigo = document.getElementById("txt_edit_cod").value;
     var nombre = document.getElementById("txt_edit_nom").value;
     var cantidad = document.getElementById("txt_edit_cant").value;
-    var precio_compra = document.getElementById("txt_edit_precio_compra").value; 
+    var precio_compra = document.getElementById("txt_edit_precio_compra").value;
     var precio_venta = document.getElementById("txt_edit_precio_venta").value;
     var comentario = document.getElementById("txt_edit_coment").value;
-    $.ajax({    
+    $.ajax({
         url: "PHP/edit.php",
         type: "POST",
         data: {
@@ -123,67 +97,84 @@ function editar(){
             precio_venta: precio_venta,
             comentario: comentario
         },
-        success: function(data){
-            if(data == 1){
+        success: function (data) {
+            if (data == 1) {
                 Swal.fire(
                     'Edición Correcta',
                     'Productos Editados Exitosamente',
                     'success'
-                ).then(function(){  window.location.reload() });
-            }else{
+                ).then(function () { window.location.reload() });
+            } else {
                 Swal.fire(
                     'Edición Incorrecto',
                     'Error al editar productos',
                     'error'
-                ).then(function(){  window.location.reload() });
-                
+                ).then(function () { window.location.reload() });
+
             }
         }
     });
 }
-function eliminar(){
+function eliminar() {
     var codigo = $('#btn_eliminar').data("id");
     $.ajax({
         url: "PHP/delete.php",
         type: "POST",
-        data: {codigo:codigo},
-        success: function(data){
-            if(data == 1){
+        data: { codigo: codigo },
+        success: function (data) {
+            if (data == 1) {
                 Swal.fire(
                     'Eliminación Correcta',
                     'Productos Eliminados Exitosamente',
                     'success'
-                ).then(function(){  window.location.reload() });
-            }else{
+                ).then(function () { window.location.reload() });
+            } else {
                 Swal.fire(
                     'Eliminación Incorrecta',
                     'Error al eliminar productos',
                     'error'
-                ).then(function(){  window.location.reload() });
+                ).then(function () { window.location.reload() });
             }
         }
     });
 }
-$(document).ready(function(){
+
+function listar(codigo) {
+    var table = $("#dt_cliente").DataTable({
+        "ajax": {
+            "metodo": "POST",
+            "url": "PHP/listar_venta.php",
+            "data": {codigo:codigo}
+        },
+        "columns": [
+            { "data": "codigo" },
+            { "data": "nom_producto" },
+            { "data": "precio_venta" }
+        ]
+    });
+}
+
+$(document).ready(function () {
     selected();
     
-    $(".btn_iniciar").on("click",function(){
-        login();
+    $(".btn_buscar_venta").on("click", function () {
+        var codigo = document.getElementById("txt_codigo_venta").value;
+        listar(codigo);
     });
 
-    $(".btn_editar").on("click",function(){
+    $(".btn_editar").on("click", function () {
         colorear();
     });
 
-    $(".btn_guardar").on("click",function(){
+    $(".btn_guardar").on("click", function () {
         guardar();
     });
 
-    $(".btn_editar_bd").on("click",function(){
+    $(".btn_editar_bd").on("click", function () {
         editar();
     });
 
-    $(".btn_eliminar").on("click",function(){
+    $(".btn_eliminar").on("click", function () {
         eliminar();
     });
 });

@@ -57,40 +57,34 @@
         <div class="col-md-6 p-5">
             <div class="card">
                 <div class="card-header d-flex justify-content-center">
-                    <h2>Guardar productos en bodega</h2>
+                    <h2>Venta de Productos</h2>
                 </div>
                 <div class="card-body">
                     <form>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="txt_codigo" placeholder="Codigo" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="txt_nombre" placeholder="Nombre Producto" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="number" class="form-control" id="txt_cantidad" placeholder="Cantidad Producto" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="number" class="form-control" id="txt_precio_compra" placeholder="Precio Compra" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="number" class="form-control" id="txt_precio_venta" placeholder="Precio Venta" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <textarea class="form-control" id="txt_comentario" placeholder="Comentario Producto" rows="5" required></textarea>
+                            <input type="text" class="form-control" id="txt_codigo_venta" placeholder="Codigo" required>
                         </div>
                         <br>
                         <div class="form-group d-flex justify-content-center">
-                            <button type="button" class="btn btn-success btn_guardar" id="btn_guardar">Guardar <i class="fa-solid fa-floppy-disk"></i> </button>
+                            <button type="button" class="btn btn-success btn_buscar_venta" id="btn_buscar_venta">Buuscar <i class="fa-solid fa-floppy-disk"></i> </button>
                         </div>
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-8 p-5">
+        <table id="dt_cliente" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>                                
+                            <th>Codigo Producto</th>
+                            <th>Nombre Producto</th>
+                            <th>Precio Producto</th>                                          
+                        </tr>
+                    </thead>                    
+                </table>
         </div>
     </div>
 </body>

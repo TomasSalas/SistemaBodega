@@ -49,6 +49,9 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="listar.php">Listar Productos</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="venta.php">Venta Productos</a>
+                    </li>
                 </ul>
 
                 <form class="d-flex">
