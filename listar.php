@@ -50,6 +50,10 @@
                         <a class="nav-link active" aria-current="page" href="listar.php">Listar Productos</a>
                     </li>
                 </ul>
+
+                <form class="d-flex">
+                    <button class="btn btn-success" type="button">Cerrar Sesión</button>
+                </form>
             </div>
         </div>
     </nav>

@@ -8,8 +8,8 @@
     $precio_venta = $_POST['precio_venta'];
     $comentario = $_POST['comentario'];
 
-    $query = "INSERT INTO productos(codigo,nom_producto,cant_producto,precio_compra,precio_venta,comen_producto)
-        VALUES('$codigo','$nombre','$cantidad','$precio_compra','$precio_venta','$comentario')";
+    $query = "INSERT INTO productos(codigo,nom_producto,cant_producto,precio_compra,precio_venta,comen_producto,estado)
+        VALUES('$codigo','$nombre','$cantidad','$precio_compra','$precio_venta','$comentario',1)";
 
     if ($conexion->query($query) === TRUE) {
         echo $data = 1;
