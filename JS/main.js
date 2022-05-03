@@ -187,13 +187,13 @@ function verificar_codigo(){
         type: "POST",
         data: { codigo: codigo },
         success: function (data) {
-            if(data == 1){
+            if(data == 2){
                 listar();
             }
-            else{
+            else if(data == 1){
                 Swal.fire(
                     'Código Incorrecto',
-                    'Código no existe',
+                    'Código no existe o Producto Sin Stock ',
                     'error'
                 );
                 document.getElementById("txt_codigo_venta").value = "";
@@ -201,14 +201,53 @@ function verificar_codigo(){
         }
     });
 }
-$(document).ready(function () {
-    selected();
-    codigo_venta();
-    $(document).keypress(function(e) {
-        if(e.which == 13) {
-            listar();
+function generar_pago(){
+    var num_boleta = document.getElementById("txt_numero_boleta_modal").value;
+    var monto_total = document.getElementById("txt_monto_total_modal").value;
+    var tipo_pago = document.getElementById("txt_tipo_pago_modal").value;
+
+    $.ajax({
+        url: "PHP/generar_venta.php",
+        type: "POST",
+        data: {
+            num_boleta: num_boleta,
+            monto_total: monto_total,
+            tipo_pago: tipo_pago
+        },
+        success: function (data) {
+            if(data == 1){
+                Swal.fire(
+                    'Pago Correcto',
+                    'Pago ingresado exitosamente',
+                    'success'
+                ).then(function () { window.location.reload() });
+            }
+            else{
+                Swal.fire(
+                    'Pago Incorrecto',
+                    'Pago no ingresado',
+                    'error'
+                );
+            }
         }
     });
+}
+function enterkey(){
+    var input = document.getElementById("txt_codigo_venta");
+    input.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        verificar_codigo();
+    }
+});
+}
+$(document).ready(function () {
+    selected();
+    enterkey();
+    $(".btn_generar_cobro").on("click", function () {
+        generar_pago();
+    });
+
     $(".btn_liberar_venta").on("click", function () {
         liberar_venta();
     });

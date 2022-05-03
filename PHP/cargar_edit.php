@@ -2,7 +2,7 @@
     include_once("conexion.php");
     
     $codigo = $_POST['codigo'];
-    
+ 
     $query = "SELECT * FROM productos WHERE codigo = '$codigo'";
     $result = $conexion -> query($query);
     $row = $result -> fetch_assoc();

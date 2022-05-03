@@ -1,11 +1,13 @@
 <?php
     include_once("conexion.php");
 
-    $monto = $_POST['monto'];
     $num_boleta = $_POST['num_boleta'];
+    $monto_total = $_POST['monto_total'];
+    $tipo_pago = $_POST['tipo_pago'];
     $fecha = date("Y-m-d");
+   
 
-    $query = "INSERT INTO venta (id_venta , fecha_venta , total_venta) VALUES ('$num_boleta' , '$fecha' , '$monto')";
+    $query = "INSERT INTO venta (id_venta , fecha_venta , id_tipo_pago ,total_venta) VALUES ('$num_boleta' , '$fecha' , '$tipo_pago', '$monto_total')";
     $result = $conexion -> query($query);
 
     if(!$result){

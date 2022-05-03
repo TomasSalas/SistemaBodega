@@ -41,7 +41,7 @@
                     
                 }        
                 echo "<td colspan='2' style='text-align:center;'>SubTotal</td>";
-                    echo ".<input id='monto_total' type='hidden' value='$total'> </input>.<td id='monto_total'>"."$ ".number_format($total, 0, ',', '.')."<button type='button' class='btn btn-primary' name='btn_monto_total' id='btn_monto_total' data-monto='$total'>Pagar</button>". "</td>";        
+                echo "<td><input id='monto_total' type='hidden' value='$total'></input>"."$".number_format($total, 0, ',', '.')."<br><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal' name='btn_monto_total' id='btn_monto_total'>Generar Pago</button>"."</td>";        
             }
     }
 
@@ -51,35 +51,11 @@
     $("#btn_monto_total").on("click", function () {
         var monto = $('#monto_total').val();
         var num_boleta = document.getElementById("txt_venta").value;
-        $.ajax({
-            type: "POST",
-            url: "PHP/generar_venta.php",
-            data: {
-                monto: monto,
-                num_boleta: num_boleta
-            },
-            success: function (data) {
-                if(data == 1)
-                {
-                    Swal.fire(
-                    'Venta Correcta',
-                    'Venta  Exitosa',
-                    'success'
-                    ).then(function () { 
-                        window.location.reload();
-                    });
-                }
-                else
-                {
-                    Swal.fire(
-                    'Venta Incorrecta',
-                    'Venta Fallida',
-                    'error'
-                ).then(function () { 
-                    window.location.reload();
-                });
-                }
-            }
-        });
+        
+        document.getElementById("txt_monto_total_modal").value = monto;
+        document.getElementById("txt_numero_boleta_modal").value = num_boleta;
+        
     });
+
+    
 </script>

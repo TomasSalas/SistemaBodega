@@ -68,11 +68,11 @@
 
                         <br>
                         <div class="form-group d-flex justify-content-center">
-                            <button type="button" class="btn btn-success btn_buscar_venta" id="btn_buscar_venta">Ingresar</button>
-
-                            <button type="button" class="btn btn-danger btn_liberar_venta" id="btn_liberar_venta">Liberar</button>
-
-                            <button type="button" class="btn btn-warning btn_prueba" id="btn_prueba">Prueba</button>
+                            <button type="button" class="btn btn-success btn_buscar_venta" id="btn_buscar_venta"><i class="fa-solid fa-cart-shopping"></i></button>
+                        </div>
+                        <br>
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="button" class="btn btn-danger btn_liberar_venta" id="btn_liberar_venta"><i class="fa-solid fa-delete-left"></i></button>
                         </div>
                     </form>
                 </div>
@@ -97,7 +97,41 @@
         </div>
     </div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ventana De Pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="form-group">
+            <label>Numero Boleta</label>
+            <input type="text" id="txt_numero_boleta_modal" class="form-control" disabled>
+          </div>
+          <div class="form-group">
+            <label>Monto Total</label>
+            <input type="text" id="txt_monto_total_modal" class="form-control" disabled>
+          </div>
+          <div class="form-group">
+            <label>Tipo Pago</label>
+            <select class="form-select txt_tipo_pago_modal"  id="txt_tipo_pago_modal" aria-label="Default select example">
+                <option value="1">Debito</option>
+                <option value="2">Credito</option>
+                <option value="3">Efectivo</option>
+            </select>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success btn_generar_cobro" id="btn_generar_cobro">Generar Cobro</button>
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
     
 </body>
-
+<script>
+    codigo_venta();
+</script>
 </html>
