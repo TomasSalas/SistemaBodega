@@ -20,26 +20,25 @@
     }else{
         $query2 = "SELECT DV.id_venta, P.nom_producto, DV.precio_venta FROM detalle_venta DV JOIN productos P on P.codigo = DV.id_producto where id_venta = '$num_boleta'";
         $resultado2 = mysqli_query($conexion, $query2);
+        $total = 0;
         if( !$resultado2){
             die("error");
-        }else{
-            echo "<table>"; 
-    
-            while($row = mysqli_fetch_array($resultado2)){   
-            echo 
-            "<tr>
-                <td>" . $row['id_venta'] . "</td>
-                <td>" . $row['nom_producto'] . "</td>
-                <td>" . $row['precio_venta'] . "</td>
-            </tr>";  
+            }else{
+                echo "<table>"; 
+        
+                while($row = mysqli_fetch_array($resultado2)){   
+                    
+                echo 
+                "<tr>
+                    <td>" . $row['id_venta'] . "</td>
+                    <td>" . $row['nom_producto'] . "</td>
+                    <td>"."$ " . number_format($row['precio_venta'], 0, ',', '.') . "</td>
+                </tr>";  
+                $total += $row['precio_venta'];
             }
-    
+            echo "<td style='text-align:center;'>SubTotal</td>";
+            echo "<td colspan='2' style='text-align:center;'>" ."$ ".number_format($total, 0, ',', '.'). "<button class='btn btn-primary btn_pagar' id='btn_pagar' data-id='$total'> Pagar</button></td>";
             echo "</table>"; 
         }
     }
-
-
-
-    
-
 ?>

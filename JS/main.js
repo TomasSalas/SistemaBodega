@@ -70,7 +70,7 @@ function guardar() {
             }
         }
     });
-}
+};
 function limpiar() {
     document.getElementById("txt_codigo").value = "";
     document.getElementById("txt_nombre").value = "";
@@ -78,7 +78,7 @@ function limpiar() {
     document.getElementById("txt_precio_compra").value = "";
     document.getElementById("txt_precio_venta").value = "";
     document.getElementById("txt_comentario").value = "";
-}
+};
 function editar() {
     var codigo = document.getElementById("txt_edit_cod").value;
     var nombre = document.getElementById("txt_edit_nom").value;
@@ -114,7 +114,7 @@ function editar() {
             }
         }
     });
-}
+};
 function eliminar() {
     var codigo = $('#btn_eliminar').data("id");
     $.ajax({
@@ -137,8 +137,7 @@ function eliminar() {
             }
         }
     });
-}
-
+};
 function listar() {
     var codigo_venta = document.getElementById("txt_codigo_venta").value;
     var num_boleta = document.getElementById("txt_venta").value;
@@ -151,21 +150,43 @@ function listar() {
         },
         success: function (data) {
             $("#table_body").html(data);
+
         }
     });
     
-}
-
+};
 function codigo_venta(){
     
     var numero_venta = Math.floor(Math.random() * 999999999999) + 1;
     document.getElementById("txt_venta").value = numero_venta;
-}
-
+};
+function liberar_venta(){
+    var codigo_venta = document.getElementById("txt_codigo_venta").value;
+    var num_boleta = document.getElementById("txt_venta").value;
+    $.ajax({
+        url: "PHP/liberar_venta.php",
+        type: "POST",
+        data: { codigo_venta: codigo_venta , num_boleta : num_boleta},
+        success: function (data) {
+            if(data == 1){
+                Swal.fire(
+                    'Liberación Correcta',
+                    'Venta Liberada Exitosamente',
+                    'success'
+                ).then(function () { 
+                    window.location.reload();
+                });
+            }
+        }
+    });
+};
 $(document).ready(function () {
     selected();
     codigo_venta();
-
+    
+    $(".btn_liberar_venta").on("click", function () {
+        liberar_venta();
+    });
     $(".btn_buscar_venta").on("click", function () {
         listar();
     });
@@ -186,4 +207,3 @@ $(document).ready(function () {
         eliminar();
     });
 });
-

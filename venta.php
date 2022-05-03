@@ -36,7 +36,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"href="guardar.php">Guardar Productos</a>
+                        <a class="nav-link active" aria-current="page" href="guardar.php">Guardar Productos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="listar.php">Listar Productos</a>
@@ -65,9 +65,11 @@
                             <input type="text" class="form-control" id="txt_codigo_venta" placeholder="Codigo" required>
                             <input type="text" class="form-control" id="txt_venta" placeholder="Venta" disabled>
                         </div>
+
                         <br>
                         <div class="form-group d-flex justify-content-center">
                             <button type="button" class="btn btn-success btn_buscar_venta" id="btn_buscar_venta">Ingresar</button>
+                            <button type="button" class="btn btn-danger btn_liberar_venta" id="btn_liberar_venta">Liberar</button>
                         </div>
                     </form>
                 </div>
@@ -77,18 +79,36 @@
     <br>
     <div class="d-flex justify-content-center">
         <div class="col-md-8 p-5">
-        <table id="dt_cliente" class="table table-bordered table-hover" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>                                
-                            <th>Codigo Producto</th>
-                            <th>Nombre Producto</th>
-                            <th>Precio Producto</th>                                          
-                        </tr>
-                    </thead>    
-                    <tbody id="table_body">
+            <table id="dt_cliente" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Codigo Producto</th>
+                        <th>Nombre Producto</th>
+                        <th>Precio Producto</th>
+                    </tr>
+                </thead>
+                <tbody id="table_body">
 
-                    </tbody>                
-                </table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
