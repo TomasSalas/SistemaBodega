@@ -61,12 +61,13 @@
                 </div>
                 <div class="card-body">
                     <form>
-                        <div class="form-group">
+                        <div class="input-group">
                             <input type="text" class="form-control" id="txt_codigo_venta" placeholder="Codigo" required>
+                            <input type="text" class="form-control" id="txt_venta" placeholder="Venta" disabled>
                         </div>
                         <br>
                         <div class="form-group d-flex justify-content-center">
-                            <button type="button" class="btn btn-success btn_buscar_venta" id="btn_buscar_venta">Buuscar <i class="fa-solid fa-floppy-disk"></i> </button>
+                            <button type="button" class="btn btn-success btn_buscar_venta" id="btn_buscar_venta">Ingresar</button>
                         </div>
                     </form>
                 </div>
@@ -83,7 +84,10 @@
                             <th>Nombre Producto</th>
                             <th>Precio Producto</th>                                          
                         </tr>
-                    </thead>                    
+                    </thead>    
+                    <tbody id="table_body">
+
+                    </tbody>                
                 </table>
         </div>
     </div>

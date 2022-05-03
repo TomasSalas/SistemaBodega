@@ -139,27 +139,35 @@ function eliminar() {
     });
 }
 
-function listar(codigo) {
-    var table = $("#dt_cliente").DataTable({
-        "ajax": {
-            "metodo": "POST",
-            "url": "PHP/listar_venta.php",
-            "data": {codigo:codigo}
+function listar() {
+    var codigo_venta = document.getElementById("txt_codigo_venta").value;
+    var num_boleta = document.getElementById("txt_venta").value;
+    $.ajax({
+        url: "PHP/listar_venta.php",
+        type: "POST",
+        data: { 
+            codigo_venta: codigo_venta,
+            num_boleta: num_boleta 
         },
-        "columns": [
-            { "data": "codigo" },
-            { "data": "nom_producto" },
-            { "data": "precio_venta" }
-        ]
+        success: function (data) {
+            $("#table_body").html(data);
+        }
     });
+    
+}
+
+function codigo_venta(){
+    
+    var numero_venta = Math.floor(Math.random() * 999999999999) + 1;
+    document.getElementById("txt_venta").value = numero_venta;
 }
 
 $(document).ready(function () {
     selected();
-    
+    codigo_venta();
+
     $(".btn_buscar_venta").on("click", function () {
-        var codigo = document.getElementById("txt_codigo_venta").value;
-        listar(codigo);
+        listar();
     });
 
     $(".btn_editar").on("click", function () {
