@@ -150,7 +150,7 @@ function listar() {
         },
         success: function (data) {
             $("#table_body").html(data);
-
+            document.getElementById("txt_codigo_venta").value = "";
         }
     });
     
@@ -180,15 +180,45 @@ function liberar_venta(){
         }
     });
 };
+function verificar_codigo(){
+    var codigo = document.getElementById("txt_codigo_venta").value;
+    $.ajax({
+        url: "PHP/verificar_codigo.php",
+        type: "POST",
+        data: { codigo: codigo },
+        success: function (data) {
+            if(data == 1){
+                listar();
+            }
+            else{
+                Swal.fire(
+                    'Código Incorrecto',
+                    'Código no existe',
+                    'error'
+                );
+                document.getElementById("txt_codigo_venta").value = "";
+            }
+        }
+    });
+}
 $(document).ready(function () {
     selected();
     codigo_venta();
-    
+    $(document).keypress(function(e) {
+        if(e.which == 13) {
+            listar();
+        }
+    });
     $(".btn_liberar_venta").on("click", function () {
         liberar_venta();
     });
+
+    $(".btn_prueba").on("click", function () {
+        
+    });
+
     $(".btn_buscar_venta").on("click", function () {
-        listar();
+        verificar_codigo();
     });
 
     $(".btn_editar").on("click", function () {
@@ -205,5 +235,9 @@ $(document).ready(function () {
 
     $(".btn_eliminar").on("click", function () {
         eliminar();
+    });
+
+    $(".btn_pagar").on("click", function () {
+        alert("OK");
     });
 });
