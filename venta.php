@@ -18,7 +18,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <!-- Datatables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+
     <!-- Locales -->
     <script src="JS/main.js" type=" text/javascript"></script>
     <link rel="stylesheet" href="CSS/main.css">
@@ -62,16 +69,9 @@
                 <div class="card-body">
                     <form>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="txt_codigo_venta" placeholder="Codigo" required>
-                            <input type="text" class="form-control" id="txt_venta" placeholder="Venta" disabled>
-                        </div>
-
-                        <br>
-                        <div class="form-group d-flex justify-content-center">
+                            <input type="text" class="form-control" id="txt_codigo_venta" placeholder="Codigo" required autofocus >
+                            <input type="hidden" class="form-control" id="txt_venta" placeholder="Venta" disabled>
                             <button type="button" class="btn btn-success btn_buscar_venta" id="btn_buscar_venta"><i class="fa-solid fa-cart-shopping"></i></button>
-                        </div>
-                        <br>
-                        <div class="form-group d-flex justify-content-center">
                             <button type="button" class="btn btn-danger btn_liberar_venta" id="btn_liberar_venta"><i class="fa-solid fa-delete-left"></i></button>
                         </div>
                     </form>
@@ -81,7 +81,7 @@
     </div>
     <br>
     <div class="d-flex justify-content-center">
-        <div class="col-md-8 p-5">
+        <div class="col-md-8 p-2">
             <table id="dt_cliente" class="table table-bordered table-hover" cellspacing="0" width="100%">
                 <thead>
                     <tr>
@@ -133,5 +133,6 @@
 </body>
 <script>
     codigo_venta();
+    enterkey();
 </script>
 </html>

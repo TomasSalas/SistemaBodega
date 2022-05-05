@@ -1,24 +1,14 @@
-var table_reload;
 var codigo = "";
-
-function selected() {
-    table_reload = $('#table_listar').DataTable({
-        "language": {
-            search: "Buscar",
-            info: "Mostrando _START_ to _END_ of _TOTAL_ Registro",
-        },
-    });
-};
-function colorear() {
-    $('#table_listar tbody').on('click', 'tr', function () {
-        $('tr').removeClass('selected');
-        this.classList.toggle("selected");
-        var data = table_reload.row(this).data();
-        codigo = data[0];
-        cargar_editar(codigo);
+function table_body() {
+    $("#buscar").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#table_listar tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
     });
 }
-function cargar_editar() {
+function cargar_editar(codigo) {
+    alert(codigo);
     $.ajax({
         url: "PHP/cargar_edit.php",
         type: "POST",
@@ -40,7 +30,8 @@ function guardar() {
     var cantidad = document.getElementById("txt_cantidad").value;
     var precio_compra = document.getElementById("txt_precio_compra").value;
     var precio_venta = document.getElementById("txt_precio_venta").value;
-    var comentario = document.getElementById("txt_comentario").value
+    var comentario = document.getElementById("txt_comentario").value;
+    
     $.ajax({
         url: "PHP/create.php",
         type: "POST",
@@ -115,8 +106,7 @@ function editar() {
         }
     });
 };
-function eliminar() {
-    var codigo = $('#btn_eliminar').data("id");
+function eliminar(codigo) {
     $.ajax({
         url: "PHP/delete.php",
         type: "POST",
@@ -241,9 +231,27 @@ function enterkey(){
     }
 });
 }
+function validar(){
+    var codigo = document.getElementById("txt_codigo").value;
+    var nombre = document.getElementById("txt_nombre").value;
+    var cantidad = document.getElementById("txt_cantidad").value;
+    var precio_compra = document.getElementById("txt_precio_compra").value;
+    var precio_venta = document.getElementById("txt_precio_venta").value;
+    var comentario = document.getElementById("txt_comentario").value;
+
+    if(codigo != ""){
+        
+    }else{
+        Swal.fire(
+            'Campos Vacios',
+            'Por favor llene todos los campos',
+            'error'
+        );
+    }
+
+}
 $(document).ready(function () {
-    selected();
-    enterkey();
+    
     $(".btn_generar_cobro").on("click", function () {
         generar_pago();
     });
@@ -261,10 +269,11 @@ $(document).ready(function () {
     });
 
     $(".btn_editar").on("click", function () {
-        colorear();
+        cargar_editar();
     });
 
-    $(".btn_guardar").on("click", function () {
+    $(".btn_guardar").on("click", function (e) {
+        e.preventDefault();
         guardar();
     });
 

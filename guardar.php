@@ -66,27 +66,27 @@
                         </div>
                         <br>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="txt_nombre" placeholder="Nombre Producto" required>
+                            <input type="text" class="form-control" id="txt_nombre" placeholder="Nombre Producto" >
                         </div>
                         <br>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="txt_cantidad" placeholder="Cantidad Producto" required>
+                            <input type="number" class="form-control" id="txt_cantidad" placeholder="Cantidad Producto" >
                         </div>
                         <br>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="txt_precio_compra" placeholder="Precio Compra" required>
+                            <input type="number" class="form-control" id="txt_precio_compra" placeholder="Precio Compra" >
                         </div>
                         <br>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="txt_precio_venta" placeholder="Precio Venta" required>
+                            <input type="number" class="form-control" id="txt_precio_venta" placeholder="Precio Venta" >
                         </div>
                         <br>
                         <div class="form-group">
-                            <textarea class="form-control" id="txt_comentario" placeholder="Comentario Producto" rows="5" required></textarea>
+                            <textarea class="form-control" id="txt_comentario" placeholder="Comentario Producto" rows="5" ></textarea>
                         </div>
                         <br>
                         <div class="form-group d-flex justify-content-center">
-                            <button type="button" class="btn btn-success btn_guardar" id="btn_guardar">Guardar <i class="fa-solid fa-floppy-disk"></i> </button>
+                            <button type="submit" class="btn btn-success btn_guardar" id="btn_guardar">Guardar <i class="fa-solid fa-floppy-disk"></i> </button>
                         </div>
                     </form>
                 </div>

@@ -17,15 +17,16 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Datatables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <link href="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.css" rel="stylesheet">
+    <!-- Footable -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.5/r-2.2.9/rr-1.2.8/datatables.css" />
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/r-2.2.9/rr-1.2.8/datatables.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/scroller/2.0.5/css/scroller.dataTables.min.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/scroller/2.0.5/js/dataTables.scroller.min.js  "></script>
     <!-- Locales -->
     <script src="JS/main.js" type=" text/javascript"></script>
     <link rel="stylesheet" href="CSS/main.css">
@@ -60,49 +61,42 @@
             </div>
         </div>
     </nav>
-
-    <div class="d-flex justify-content-center">
-        <div class="col-md-10 p-5">
-            <div class="card">
-                <div class="card-header d-flex justify-content-center">
-                    <h2>Lista de productos en bodega</h2>
-                </div>
-                <div class="card-body">
-                    <table class="table display nowrap" id="table_listar">
-                        <thead>
-                            <tr>
-                                <th scope="col">Codigo Producto</th>
-                                <th scope="col">Nombre Producto</th>
-                                <th scope="col">Cantidad Producto</th>
-                                <th scope="col">Precio Compra</th>
-                                <th scope="col">Precio Venta</th>
-                                <th scope="col">Comentario</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            include_once 'PHP/conexion.php';
-                            $sql = "SELECT * FROM productos where estado = 1";
-                            $result = $conexion -> query($sql);
-                            ?>
-                            <?php foreach ($result as $row) : ?>
-                                <tr>
-                                <td><?php echo $row['codigo'] ?></td>
-                                <td><?php echo $row['nom_producto'] ?></td>
-                                <td><?php echo $row['cant_producto'] ?></td>
-                                <td><?php echo "$" . number_format($row['precio_compra'], 0, ',', '.'); ?></td>
-                                <td><?php echo "$" . number_format($row['precio_venta'], 0, ',', '.');?></td>
-                                <td><?php echo $row['comen_producto'] ?></td>
-                                <td>
-                                    <button type="button" class="btn btn-warning btn_editar"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btn_editar">Editar</button>
-                                    <button type="button" class="btn btn-danger btn_eliminar" id="btn_eliminar" data-id="<?php echo($row['codigo']);?>">Eliminar</button>
-                                </td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
-                </div>
+    <!-- <input type="text" class="form-control" placeholder="Buscar" id="buscar"> -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table" id="table_listar">
+                    <thead>
+                        <tr>
+                            <th data-field="id">Codigo</th>
+                            <th data-field="nombre" data-filter-control="input">Nombre Producto</th>
+                            <th data-field="cantidad">Cantidad Producto</th>
+                            <th data-field="precioc">Precio Compra</th>
+                            <th data-field="preciov">Precio Venta</th>
+                            <th data-field="comentario">Comentario</th>
+                            <th data-field="acciones">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        include_once 'PHP/conexion.php';
+                        $sql = "SELECT * FROM productos where estado = 1 ";
+                        $result = $conexion->query($sql);
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<tr>';
+                            echo '<td>' . $row['codigo'] . '</td>';
+                            echo '<td>' . $row['nom_producto'] . '</td>';
+                            echo '<td>' . $row['cant_producto'] . '</td>';
+                            echo '<td>' . $row['precio_compra'] . '</td>';
+                            echo '<td>' . $row['precio_compra'] . '</td>';
+                            echo '<td>' . $row['comen_producto'] . '</td>';
+                            echo '<td>';
+                            echo '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btn_editar" onclick="cargar_editar(' . $row['codigo'] . ')">Editar</button>';
+                            echo '<button class="btn btn-danger" onclick="eliminar(' . $row['codigo'] . ')">Eliminar</button>';
+                        ?>
+                        <?php   echo '</td>';                         echo '</tr>'; } ?>    
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -150,3 +144,6 @@
 </body>
 
 </html>
+<script>
+
+</script>
