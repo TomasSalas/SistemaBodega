@@ -1,9 +1,9 @@
 var codigo = "";
 function table_body() {
-    $("#buscar").on("keyup", function() {
+    $("#buscar").on("keyup", function () {
         var value = $(this).val().toLowerCase();
-        $("#table_listar tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $("#table_listar tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
 }
@@ -31,7 +31,7 @@ function guardar() {
     var precio_compra = document.getElementById("txt_precio_compra").value;
     var precio_venta = document.getElementById("txt_precio_venta").value;
     var comentario = document.getElementById("txt_comentario").value;
-    
+
     $.ajax({
         url: "PHP/create.php",
         type: "POST",
@@ -134,53 +134,53 @@ function listar() {
     $.ajax({
         url: "PHP/listar_venta.php",
         type: "POST",
-        data: { 
+        data: {
             codigo_venta: codigo_venta,
-            num_boleta: num_boleta 
+            num_boleta: num_boleta
         },
         success: function (data) {
             $("#table_body").html(data);
             document.getElementById("txt_codigo_venta").value = "";
         }
     });
-    
+
 };
-function codigo_venta(){
-    
+function codigo_venta() {
+
     var numero_venta = Math.floor(Math.random() * 999999999999) + 1;
     document.getElementById("txt_venta").value = numero_venta;
 };
-function liberar_venta(){
+function liberar_venta() {
     var codigo_venta = document.getElementById("txt_codigo_venta").value;
     var num_boleta = document.getElementById("txt_venta").value;
     $.ajax({
         url: "PHP/liberar_venta.php",
         type: "POST",
-        data: { codigo_venta: codigo_venta , num_boleta : num_boleta},
+        data: { codigo_venta: codigo_venta, num_boleta: num_boleta },
         success: function (data) {
-            if(data == 1){
+            if (data == 1) {
                 Swal.fire(
                     'Liberación Correcta',
                     'Venta Liberada Exitosamente',
                     'success'
-                ).then(function () { 
+                ).then(function () {
                     window.location.reload();
                 });
             }
         }
     });
 };
-function verificar_codigo(){
+function verificar_codigo() {
     var codigo = document.getElementById("txt_codigo_venta").value;
     $.ajax({
         url: "PHP/verificar_codigo.php",
         type: "POST",
         data: { codigo: codigo },
         success: function (data) {
-            if(data == 2){
+            if (data == 2) {
                 listar();
             }
-            else if(data == 1){
+            else if (data == 1) {
                 Swal.fire(
                     'Código Incorrecto',
                     'Código no existe o Producto Sin Stock ',
@@ -191,7 +191,7 @@ function verificar_codigo(){
         }
     });
 }
-function generar_pago(){
+function generar_pago() {
     var num_boleta = document.getElementById("txt_numero_boleta_modal").value;
     var monto_total = document.getElementById("txt_monto_total_modal").value;
     var tipo_pago = document.getElementById("txt_tipo_pago_modal").value;
@@ -205,14 +205,14 @@ function generar_pago(){
             tipo_pago: tipo_pago
         },
         success: function (data) {
-            if(data == 1){
+            if (data == 1) {
                 Swal.fire(
                     'Pago Correcto',
                     'Pago ingresado exitosamente',
                     'success'
                 ).then(function () { window.location.reload() });
             }
-            else{
+            else {
                 Swal.fire(
                     'Pago Incorrecto',
                     'Pago no ingresado',
@@ -222,16 +222,16 @@ function generar_pago(){
         }
     });
 }
-function enterkey(){
+function enterkey() {
     var input = document.getElementById("txt_codigo_venta");
-    input.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        verificar_codigo();
-    }
-});
+    input.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            verificar_codigo();
+        }
+    });
 }
-function validar(){
+function validar() {
     var codigo = document.getElementById("txt_codigo").value;
     var nombre = document.getElementById("txt_nombre").value;
     var cantidad = document.getElementById("txt_cantidad").value;
@@ -239,9 +239,9 @@ function validar(){
     var precio_venta = document.getElementById("txt_precio_venta").value;
     var comentario = document.getElementById("txt_comentario").value;
 
-    if(codigo != ""){
-        
-    }else{
+    if (codigo != "") {
+
+    } else {
         Swal.fire(
             'Campos Vacios',
             'Por favor llene todos los campos',
@@ -250,10 +250,35 @@ function validar(){
     }
 
 }
+function login() {
+    var usuario = document.getElementById("txt_usuario").value;
+    var contraseña = document.getElementById("txt_pass").value;
+    $.ajax({
+        url: "PHP/login.php",
+        type: "POST",
+        data: { usuario: usuario, contraseña: contraseña },
+        success: function (data) {
+           if(data == 1){
+                window.location.href = "guardar.php";
+           }
+           else{
+                Swal.fire(
+                    'Error',
+                    'Usuario o Contraseña Incorrectos',
+                    'error'
+                );
+           }
+        }
+    });
+}
 $(document).ready(function () {
-    
+
     $(".btn_generar_cobro").on("click", function () {
         generar_pago();
+    });
+
+    $(".btn_iniciar").on("click", function () {
+        login();
     });
 
     $(".btn_liberar_venta").on("click", function () {
@@ -261,7 +286,7 @@ $(document).ready(function () {
     });
 
     $(".btn_prueba").on("click", function () {
-        
+
     });
 
     $(".btn_buscar_venta").on("click", function () {
