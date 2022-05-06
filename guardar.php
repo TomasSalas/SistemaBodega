@@ -29,13 +29,12 @@
 
 <body>
     <?php
-    $usuario = $_GET['usuario'];
-    if($usuario == null){
-        header("Location: login.php");
-    }else{
-        include ('PHP/verificar.php');
-    }
-    
+        $usuario = $_GET['usuario'];
+        if($usuario == null){
+            header("Location: login.php");
+        }else{
+            include ('PHP/verificar.php');
+        }
     ?>
 
     <div class="d-flex justify-content-center">

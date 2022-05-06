@@ -7,7 +7,7 @@
     $fecha = date("Y-m-d");
    
 
-    $query = "INSERT INTO venta (id_venta , fecha_venta , id_tipo_pago ,total_venta) VALUES ('$num_boleta' , '$fecha' , '$tipo_pago', '$monto_total')";
+    $query = "INSERT INTO venta (id_venta , fecha , precio_venta ,id_tipo_pago ) VALUES ('$num_boleta' , '$fecha' , '$monto_total', '$tipo_pago')";
     $result = $conexion -> query($query);
 
     if(!$result){

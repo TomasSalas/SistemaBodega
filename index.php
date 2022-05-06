@@ -38,7 +38,7 @@
     ?>
 
     <div class="d-flex justify-content-center">
-        <h2> Bienvenido <?php echo $usuario; ?></h2>
+        <h2> Bienvenido <?php echo $nom; ?></h2>
     </div>
 </body>
 
