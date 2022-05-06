@@ -10,7 +10,8 @@
     $result = $conexion->query($query);
     
     if($result->num_rows > 0){  
-        echo $data = 1;
+        $data = $result->fetch_assoc();
+        echo $data['usuario'];
     }else{
         echo $data = 2;
     }

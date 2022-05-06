@@ -10,6 +10,7 @@
 
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
     <!-- SweetAlert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Bootstrap -->
@@ -28,11 +29,13 @@
 
 <body>
     <?php
-        session_start();
-        include 'PHP/conexion.php';
-        
-
-        include './php/menu/menu_admin.php';
+    $usuario = $_GET['usuario'];
+    if($usuario == null){
+        header("Location: login.php");
+    }else{
+        include ('PHP/verificar.php');
+    }
+    
     ?>
 
     <div class="d-flex justify-content-center">

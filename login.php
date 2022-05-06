@@ -1,3 +1,16 @@
+<?php
+$error = "";
+if(isset($_GET['error'])){
+    $error = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error!</strong> No se puede modificar la ruta.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>';
+}else{
+    $error = '';
+}
+
+ 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bodega</title>
 
-
+    
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js" integrity="sha512-8pbzenDolL1l5OPSsoURCx9TEdMFTaeFipASVrMYKhuYtly+k3tcsQYliOEKTmuB1t7yuzAiVo+yd7SJz+ijFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -25,8 +38,6 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-
-
     <!-- Locales -->
     <script src="JS/main.js" type=" text/javascript"></script>
     <link rel="stylesheet" href="CSS/main.css">
@@ -35,88 +46,33 @@
 </head>
 
 <body>
-    <?php
-             $usuario = $_GET['usuario'];
-             if($usuario == null){
-                 header("Location: login.php");
-             }else{
-                 include ('PHP/verificar.php');
-             }
-    ?>
-
     <div class="d-flex justify-content-center">
-        <div class="col-md-6 p-5">
+        <div class="col-md-8 p-5">
             <div class="card">
+                               
                 <div class="card-header d-flex justify-content-center">
-                    <h2>Venta de Productos</h2>
+                    <h2>Login Bodega</h2>
                 </div>
                 <div class="card-body">
                     <form>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="txt_codigo_venta" placeholder="Codigo" required autofocus >
-                            <input type="hidden" class="form-control" id="txt_venta" placeholder="Venta" disabled>
-                            <button type="button" class="btn btn-success btn_buscar_venta" id="btn_buscar_venta"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button type="button" class="btn btn-danger btn_liberar_venta" id="btn_liberar_venta"><i class="fa-solid fa-delete-left"></i></button>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name ="txt_usuario" id="txt_usuario" placeholder="Usuario">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="txt_pass" id="txt_pass" placeholder="Contraseña">
+                        </div>
+                        <br>
+                        <div class="form-group d-flex justify-content-center">
+                            <input type="button" class="btn btn-success btn_iniciar" id="btn_iniciar" value="Iniciar Sesión">
                         </div>
                     </form>
+                    <br>
+                    <h5><?php echo $error;?></h5>     
                 </div>
             </div>
         </div>
     </div>
-    <br>
-    <div class="d-flex justify-content-center">
-        <div class="col-md-8 p-2">
-            <table id="dt_cliente" class="table table-bordered table-hover" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>Codigo Producto</th>
-                        <th>Nombre Producto</th>
-                        <th>Precio Producto</th>
-                    </tr>
-                </thead>
-                <tbody id="table_body">
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ventana De Pago</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <div class="form-group">
-            <label>Numero Boleta</label>
-            <input type="text" id="txt_numero_boleta_modal" class="form-control" disabled>
-          </div>
-          <div class="form-group">
-            <label>Monto Total</label>
-            <input type="text" id="txt_monto_total_modal" class="form-control" disabled>
-          </div>
-          <div class="form-group">
-            <label>Tipo Pago</label>
-            <select class="form-select txt_tipo_pago_modal"  id="txt_tipo_pago_modal" aria-label="Default select example">
-                <option value="1">Debito</option>
-                <option value="2">Credito</option>
-                <option value="3">Efectivo</option>
-            </select>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success btn_generar_cobro" id="btn_generar_cobro">Generar Cobro</button>
-        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-    
 </body>
-<script>
-    codigo_venta();
-    enterkey();
-</script>
+
 </html>

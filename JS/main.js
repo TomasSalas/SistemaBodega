@@ -258,8 +258,10 @@ function login() {
         type: "POST",
         data: { usuario: usuario, contraseña: contraseña },
         success: function (data) {
-           if(data == 1){
-                window.location.href = "guardar.php";
+           if(data != 2){
+                
+                var usuario = md5(data);
+                window.location.href = "index.php?usuario=" + usuario;
            }
            else{
                 Swal.fire(
@@ -313,4 +315,9 @@ $(document).ready(function () {
     $(".btn_pagar").on("click", function () {
         alert("OK");
     });
+    $(".btn-salir").on("click", function () {
+        window.location.href = "login.php";
+    });
+
+    
 });

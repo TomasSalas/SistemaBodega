@@ -7,12 +7,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="venta.php">Venta Productos</a>
+                        <a class="nav-link" aria-current="page" href="index.php?usuario=<?php echo $usuario; ?>">Bienvenido</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="venta.php?usuario=<?php echo $usuario; ?>">Venta Productos</a>
                     </li>
                 </ul>
-
                 <form class="d-flex">
-                    <button class="btn btn-success" type="button">Cerrar Sesión</button>
+                    <button class="btn btn-success btn-salir" id="btn-salir" type="button">Cerrar Sesión</button>
                 </form>
             </div>
         </div>

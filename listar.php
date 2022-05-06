@@ -10,6 +10,7 @@
 
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js" integrity="sha512-8pbzenDolL1l5OPSsoURCx9TEdMFTaeFipASVrMYKhuYtly+k3tcsQYliOEKTmuB1t7yuzAiVo+yd7SJz+ijFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- SweetAlert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Bootstrap -->
@@ -37,7 +38,12 @@
 
 <body>
     <?php
-        include './php/menu/menu_admin.php';
+             $usuario = $_GET['usuario'];
+             if($usuario == null){
+                 header("Location: login.php");
+             }else{
+                 include ('PHP/verificar.php');
+             }
     ?>
     <!-- <input type="text" class="form-control" placeholder="Buscar" id="buscar"> -->
     <div class="container">
