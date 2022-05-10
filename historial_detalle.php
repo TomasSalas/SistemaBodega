@@ -60,8 +60,8 @@
                     <tbody>
                         <?php
                         include_once 'PHP/conexion.php';
-                        $sql = "SELECT DV.ID_VENTA, COUNT(DV.ID_PRODUCTO) AS PRODU FROM DETALLE_VENTA DV WHERE NOT EXISTS
-                        (SELECT * FROM VENTA V WHERE V.ID_VENTA = DV.ID_VENTA)
+                        $sql = "SELECT DV.ID_VENTA, COUNT(DV.ID_PRODUCTO) AS PRODU FROM detalle_venta DV WHERE NOT EXISTS
+                        (SELECT * FROM venta V WHERE V.ID_VENTA = DV.ID_VENTA)
                         GROUP BY DV.ID_VENTA";
                         $result = $conexion->query($sql);
                         while ($row = $result->fetch_assoc()) {

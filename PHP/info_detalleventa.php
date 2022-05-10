@@ -2,7 +2,7 @@
     include_once("conexion.php");
     $venta = $_POST['venta'];
 
-    $query = "SELECT * FROM detalle_venta DV JOIN PRODUCTOS P ON P.CODIGO = DV.ID_PRODUCTO
+    $query = "SELECT * FROM detalle_venta DV JOIN productos P ON P.CODIGO = DV.ID_PRODUCTO
     where id_venta = '$venta'";
     $result = $conexion -> query($query);
 

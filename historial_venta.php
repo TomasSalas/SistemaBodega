@@ -62,8 +62,8 @@
                     <tbody>
                         <?php
                         include_once 'PHP/conexion.php';
-                        $sql = "SELECT V.ID_VENTA , V.FECHA, V.PRECIO_VENTA , TP.DETALLE_PAGO FROM VENTA V 
-                            JOIN TIPO_PAGO TP ON TP.ID_TIPO_PAGO = V.ID_TIPO_PAGO;";
+                        $sql = "SELECT V.ID_VENTA , V.FECHA, V.PRECIO_VENTA , TP.DETALLE_PAGO FROM venta V 
+                            JOIN tipo_pago TP ON TP.ID_TIPO_PAGO = V.ID_TIPO_PAGO;";
                         $result = $conexion->query($sql);
                         while ($row = $result->fetch_assoc()) {
                             echo '<tr>';
