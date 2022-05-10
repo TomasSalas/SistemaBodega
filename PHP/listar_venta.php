@@ -21,7 +21,7 @@
     }
     else
     {
-        $query2 = "SELECT DV.id_venta, P.nom_producto, DV.precio_venta FROM detalle_venta DV JOIN productos P on P.codigo = DV.id_producto where id_venta = '$num_boleta'";
+        $query2 = "SELECT P.codigo, P.nom_producto, DV.precio_venta FROM detalle_venta DV JOIN productos P on P.codigo = DV.id_producto where id_venta = '$num_boleta'";
         $resultado2 = mysqli_query($conexion, $query2);
         $total = 0;
         if( !$resultado2)
@@ -33,7 +33,7 @@
                 while($row = mysqli_fetch_array($resultado2))
                 {   echo 
                     "<tr>
-                        <td>" . $row['id_venta'] . "</td>
+                        <td>" . $row['codigo'] . "</td>
                         <td>" . $row['nom_producto'] . "</td>
                         <td>"."$ " . number_format($row['precio_venta'], 0, ',', '.') . "</td>
                     </tr>";  

@@ -8,7 +8,6 @@ function table_body() {
     });
 }
 function cargar_editar(codigo) {
-    alert(codigo);
     $.ajax({
         url: "PHP/cargar_edit.php",
         type: "POST",
@@ -31,36 +30,57 @@ function guardar() {
     var precio_compra = document.getElementById("txt_precio_compra").value;
     var precio_venta = document.getElementById("txt_precio_venta").value;
     var comentario = document.getElementById("txt_comentario").value;
-
-    $.ajax({
-        url: "PHP/create.php",
-        type: "POST",
-        data: {
-            codigo: codigo,
-            nombre: nombre,
-            cantidad: cantidad,
-            precio_compra: precio_compra,
-            precio_venta: precio_venta,
-            comentario: comentario
-        },
-        success: function (data) {
-            if (data == 1) {
-                Swal.fire(
-                    'Ingreso Correcto',
-                    'Productos Registrados Exitosamente',
-                    'success'
-                );
-                limpiar();
-            } else {
-                Swal.fire(
-                    'Ingreso Incorrecto',
-                    'Error al registrar productos',
-                    'error'
-                );
-                limpiar();
+    
+    if(codigo == "" || codigo == null){
+        if(nombre == "" || nombre == null){
+            if(cantidad == "" || cantidad == null){
+                if(precio_compra == "" || precio_compra == null){
+                    if(precio_venta == "" || precio_venta == null){
+                        if(comentario == "" || comentario == null){
+                            Swal.fire(
+                                'Error',
+                                'Debe llenar todos los campos',
+                                'error'
+                            );
+                        }
+                    }
+                }
             }
         }
-    });
+        
+    }
+    else{
+        $.ajax({
+            url: "PHP/create.php",
+            type: "POST",
+            data: {
+                codigo: codigo,
+                nombre: nombre,
+                cantidad: cantidad,
+                precio_compra: precio_compra,
+                precio_venta: precio_venta,
+                comentario: comentario
+            },
+            success: function (data) {
+                if (data == 1) {
+                    Swal.fire(
+                        'Ingreso Correcto',
+                        'Productos Registrados Exitosamente',
+                        'success'
+                    );
+                    limpiar();
+                } else {
+                    Swal.fire(
+                        'Ingreso Incorrecto',
+                        'Error al registrar productos',
+                        'error'
+                    );
+                    limpiar();
+                }
+            }
+        });
+    }
+ 
 };
 function limpiar() {
     document.getElementById("txt_codigo").value = "";
@@ -231,25 +251,7 @@ function enterkey() {
         }
     });
 }
-function validar() {
-    var codigo = document.getElementById("txt_codigo").value;
-    var nombre = document.getElementById("txt_nombre").value;
-    var cantidad = document.getElementById("txt_cantidad").value;
-    var precio_compra = document.getElementById("txt_precio_compra").value;
-    var precio_venta = document.getElementById("txt_precio_venta").value;
-    var comentario = document.getElementById("txt_comentario").value;
 
-    if (codigo != "") {
-
-    } else {
-        Swal.fire(
-            'Campos Vacios',
-            'Por favor llene todos los campos',
-            'error'
-        );
-    }
-
-}
 function login() {
     var usuario = document.getElementById("txt_usuario").value;
     var contraseña = document.getElementById("txt_pass").value;
@@ -272,6 +274,9 @@ function login() {
            }
         }
     });
+}
+
+function info_detalle(){
 }
 $(document).ready(function () {
 
@@ -300,7 +305,6 @@ $(document).ready(function () {
     });
 
     $(".btn_guardar").on("click", function (e) {
-        e.preventDefault();
         guardar();
     });
 
@@ -315,8 +319,67 @@ $(document).ready(function () {
     $(".btn_pagar").on("click", function () {
         alert("OK");
     });
+
     $(".btn-salir").on("click", function () {
         window.location.href = "login.php";
+    });
+
+    $(".btn-detalle-venta").on("click", function () {
+      $('#modaldetalleventa').modal('show');
+      var venta = $(this).attr("data-id");
+      $.ajax({
+        url: "PHP/info_detalleventa.php",
+        type: "POST",
+        data: { venta: venta },
+        success: function (data) {
+            $("#detalle_venta_nulo").html(data);
+        }
+      })
+    });
+   
+    $(".btn-eliminar-detalle").on("click", function () {
+        var venta = $(this).attr("data-id");
+        
+        $.ajax({
+            url: "PHP/eliminar_detalleventa.php",
+            type: "POST",
+            data: { venta: venta },
+            success: function (data) {
+                if (data == 1) {
+                    Swal.fire(
+                        'Eliminación Correcta',
+                        'Detalle de Venta Eliminado Exitosamente',
+                        'success'
+                    ).then(function () {
+                        window.location.reload();
+                    }
+                    );
+                }
+                else {
+                    Swal.fire(
+                        'Eliminación Incorrecta',
+                        'Detalle de Venta No Eliminado',
+                        'error'
+                    );
+                }
+            }
+    });
+    
+    });
+
+    $(".btn_detalle_venta_principal").on("click", function () {
+        var venta = $(this).attr("data-id");
+        $.ajax({
+            url: "PHP/info_detalleventa.php",
+            type: "POST",
+            data: { venta: venta },
+            success: function (data) {
+                $('#modaldetalleventaprinci').modal('show');
+                
+                $("#detalle_venta_princi").html(data);
+            }
+
+        })
     });
 
     

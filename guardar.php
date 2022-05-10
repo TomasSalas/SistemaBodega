@@ -70,7 +70,7 @@
                         </div>
                         <br>
                         <div class="form-group d-flex justify-content-center">
-                            <button type="submit" class="btn btn-success btn_guardar" id="btn_guardar">Guardar <i class="fa-solid fa-floppy-disk"></i> </button>
+                            <button type="button" class="btn btn-success btn_guardar" id="btn_guardar">Guardar <i class="fa-solid fa-floppy-disk"></i> </button>
                         </div>
                     </form>
                 </div>
