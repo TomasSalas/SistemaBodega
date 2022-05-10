@@ -1,3 +1,7 @@
 #txt_comentario{
     resize: none;
 };
+body{
+    font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+    font-size: 16px;
+}

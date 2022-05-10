@@ -11,7 +11,7 @@
         echo "<tr>";
         echo "<td>" . $row['id_producto'] . "</td>";
         echo "<td>" . $row['nom_producto'] . "</td>";
-        echo "<td>" . $row['precio_venta'] . "</td>";
+        echo "<td>" . '$' . number_format($row['precio_venta'], 0, ',', '.') . "</td>";
         echo "</tr>";
     }
 ?>
