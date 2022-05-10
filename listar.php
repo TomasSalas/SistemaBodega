@@ -65,19 +65,20 @@
                     </thead>
                     <tbody>
                         <?php
+                        
                         include_once 'PHP/conexion.php';
                         $sql = "SELECT * FROM productos where estado = 1 ";
                         $result = $conexion->query($sql);
                         while ($row = $result->fetch_assoc()) {
                             echo '<tr>';
                             echo '<td>' . $row['codigo'] . '</td>';
-                            echo '<td>' . $row['nom_producto'] . '</td>';
+                            echo '<td>' .htmlentities( $row['nom_producto']). '</td>';
                             echo '<td>' . $row['cant_producto'] . '</td>';
                             echo '<td>' . $row['precio_compra'] . '</td>';
                             echo '<td>' . $row['precio_compra'] . '</td>';
                             echo '<td>' . $row['comen_producto'] . '</td>';
                             echo '<td>';
-                            echo '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btn_editar" onclick="cargar_editar(' . $row['codigo'] . ')">Editar</button>';
+                            echo '<button class="btn btn-primary btn_editar" data-id="' . $row['codigo'] . '">Editar</button>';
                             echo '<button class="btn btn-danger" onclick="eliminar(' . $row['codigo'] . ')">Eliminar</button>';
                         ?>
                         <?php   echo '</td>';                         echo '</tr>'; } ?>    

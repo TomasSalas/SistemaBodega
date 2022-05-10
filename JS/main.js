@@ -7,21 +7,8 @@ function table_body() {
         });
     });
 }
-function cargar_editar(codigo) {
-    $.ajax({
-        url: "PHP/cargar_edit.php",
-        type: "POST",
-        dataType: "JSON",
-        data: { codigo: codigo },
-        success: function (data) {
-            document.getElementById("txt_edit_cod").value = data.codigo;
-            document.getElementById("txt_edit_nom").value = data.nombre;
-            document.getElementById("txt_edit_cant").value = data.cantidad;
-            document.getElementById("txt_edit_precio_compra").value = data.precio_compra;
-            document.getElementById("txt_edit_precio_venta").value = data.precio_venta;
-            document.getElementById("txt_edit_coment").value = data.comentario;
-        }
-    })
+function cargar_editar() {
+    
 };
 function guardar() {
     var codigo = document.getElementById("txt_codigo").value;
@@ -301,7 +288,24 @@ $(document).ready(function () {
     });
 
     $(".btn_editar").on("click", function () {
-        cargar_editar();
+        var codigo = $(this).attr("data-id");
+        alert(codigo);
+        $('#staticBackdrop').modal('show');
+        
+        $.ajax({
+            url: "PHP/cargar_edit.php",
+            type: "POST",
+            dataType: "JSON",
+            data: { codigo: codigo },
+            success: function (data) {
+                document.getElementById("txt_edit_cod").value = data.codigo;
+                document.getElementById("txt_edit_nom").value = data.nombre;
+                document.getElementById("txt_edit_cant").value = data.cantidad;
+                document.getElementById("txt_edit_precio_compra").value = data.precio_compra;
+                document.getElementById("txt_edit_precio_venta").value = data.precio_venta;
+                document.getElementById("txt_edit_coment").value = data.comentario;
+            }
+        });
     });
 
     $(".btn_guardar").on("click", function (e) {
