@@ -1,5 +1,6 @@
 <?php
     include_once("conexion.php");
+    
     $codigo_venta = $_POST['codigo_venta'];
     $num_boleta = $_POST['num_boleta'];
     $table="";
@@ -38,14 +39,11 @@
                         <td>"."$ " . number_format($row['precio_venta'], 0, ',', '.') . "</td>
                     </tr>";  
                     $total += $row['precio_venta'];
-                    
-                }        
+                };        
                 echo "<td colspan='2' style='text-align:center;'>SubTotal</td>";
                 echo "<td><input id='monto_total' type='hidden' value='$total'></input>"."$".number_format($total, 0, ',', '.')."<br><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal' name='btn_monto_total' id='btn_monto_total'>Generar Pago</button>"."</td>";        
             }
     }
-
-    
 ?>
 <script>
     $("#btn_monto_total").on("click", function () {
@@ -54,8 +52,5 @@
         
         document.getElementById("txt_monto_total_modal").value = monto;
         document.getElementById("txt_numero_boleta_modal").value = num_boleta;
-        
     });
-
-    
 </script>

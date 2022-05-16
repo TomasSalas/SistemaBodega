@@ -6,9 +6,6 @@ function table_body() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
-}
-function cargar_editar() {
-    
 };
 function guardar() {
     var codigo = document.getElementById("txt_codigo").value;
@@ -153,7 +150,6 @@ function listar() {
 
 };
 function codigo_venta() {
-
     var numero_venta = Math.floor(Math.random() * 999999999999) + 1;
     document.getElementById("txt_venta").value = numero_venta;
 };
@@ -202,6 +198,7 @@ function generar_pago() {
     var num_boleta = document.getElementById("txt_numero_boleta_modal").value;
     var monto_total = document.getElementById("txt_monto_total_modal").value;
     var tipo_pago = document.getElementById("txt_tipo_pago_modal").value;
+    var trx = document.getElementById("txt_trx").value;
 
     $.ajax({
         url: "PHP/generar_venta.php",
@@ -209,7 +206,8 @@ function generar_pago() {
         data: {
             num_boleta: num_boleta,
             monto_total: monto_total,
-            tipo_pago: tipo_pago
+            tipo_pago: tipo_pago,
+            trx:trx
         },
         success: function (data) {
             if (data == 1) {
@@ -218,8 +216,7 @@ function generar_pago() {
                     'Pago ingresado exitosamente',
                     'success'
                 ).then(function () { window.location.reload() });
-            }
-            else {
+            }else {
                 Swal.fire(
                     'Pago Incorrecto',
                     'Pago no ingresado',
@@ -228,7 +225,7 @@ function generar_pago() {
             }
         }
     });
-}
+};
 function enterkey() {
     var input = document.getElementById("txt_codigo_venta");
     input.addEventListener("keypress", function (event) {
@@ -237,8 +234,7 @@ function enterkey() {
             verificar_codigo();
         }
     });
-}
-
+};
 function login() {
     var usuario = document.getElementById("txt_usuario").value;
     var contraseña = document.getElementById("txt_pass").value;
@@ -248,7 +244,6 @@ function login() {
         data: { usuario: usuario, contraseña: contraseña },
         success: function (data) {
            if(data != 2){
-                
                 var usuario = md5(data);
                 window.location.href = "index.php?usuario=" + usuario;
            }
@@ -261,8 +256,7 @@ function login() {
            }
         }
     });
-}
-
+};
 function info_detalle(){
 }
 $(document).ready(function () {
@@ -271,7 +265,7 @@ $(document).ready(function () {
         generar_pago();
     });
 
-    $(".btn_iniciar").on("click", function () {
+    $("#btn_iniciar").on("click", function () {
         login();
     });
 
@@ -289,7 +283,6 @@ $(document).ready(function () {
 
     $(".btn_editar").on("click", function () {
         var codigo = $(this).attr("data-id");
-        alert(codigo);
         $('#staticBackdrop').modal('show');
         
         $.ajax({
@@ -320,9 +313,9 @@ $(document).ready(function () {
         eliminar();
     });
 
-    $(".btn_pagar").on("click", function () {
+/*     $(".btn_pagar").on("click", function () {
         alert("OK");
-    });
+    }); */
 
     $(".btn-salir").on("click", function () {
         window.location.href = "login.php";
@@ -386,5 +379,55 @@ $(document).ready(function () {
         })
     });
 
+    $(".txt_tipo_pago_modal").on("change", function () {
+        var tipo_pago = document.getElementById("txt_tipo_pago_modal").value;
+        if(tipo_pago == 3){
+            document.getElementById("txt_trx").disabled = true;
+        }else{
+            document.getElementById("txt_trx").disabled = false;
+        }
+    });
+    $('#users').DataTable({
+        responsive: true,
+        lengthChange: false,
+        language: {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "No se encontró nada - lo siento",
+            "info": "Mostrando la página _PAGE_ de _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        }
+    }).columns.adjust()
+    .responsive.recalc();
     
+    $('#dt_cliente').DataTable({
+        bFilter: false,
+        bInfo: false,
+        bPaginate: false,
+        responsive: true,
+        lengthChange: false,
+        language: {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "No se encontró nada - lo siento",
+            "info": "Mostrando la página _PAGE_ de _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+        }
+        
+    }).columns.adjust()
+    .responsive.recalc();
 });

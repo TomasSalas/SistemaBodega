@@ -4,10 +4,11 @@
     $num_boleta = $_POST['num_boleta'];
     $monto_total = $_POST['monto_total'];
     $tipo_pago = $_POST['tipo_pago'];
+    $trx = $_POST['trx'];
     $fecha = date("Y-m-d");
    
 
-    $query = "INSERT INTO venta (id_venta , fecha , precio_venta ,id_tipo_pago ) VALUES ('$num_boleta' , '$fecha' , '$monto_total', '$tipo_pago')";
+    $query = "INSERT INTO venta (id_venta , fecha , precio_venta ,id_tipo_pago, trx ) VALUES ('$num_boleta' , '$fecha' , '$monto_total', '$tipo_pago', '$trx')";
     $result = $conexion -> query($query);
 
     if(!$result){

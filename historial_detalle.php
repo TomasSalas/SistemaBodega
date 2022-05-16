@@ -2,40 +2,24 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bodega</title>
+    <title>Lista Productos</title>
 
-
-    <!-- Jquery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js" integrity="sha512-8pbzenDolL1l5OPSsoURCx9TEdMFTaeFipASVrMYKhuYtly+k3tcsQYliOEKTmuB1t7yuzAiVo+yd7SJz+ijFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- SweetAlert -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--Regular Datatables CSS-->
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!--Responsive Extension Datatables CSS-->
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">	
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" />
+    
+    <link href="CSS/main.css" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-    <link href="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.css" rel="stylesheet">
-    <!-- Footable -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.5/r-2.2.9/rr-1.2.8/datatables.css" />
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/r-2.2.9/rr-1.2.8/datatables.js"></script>
-
-    <!-- Locales -->
-    <script src="JS/main.js" type=" text/javascript"></script>
-    <link rel="stylesheet" href="CSS/main.css">
     <!-- Font  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+    <!-- Tailwind -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -48,38 +32,38 @@
     }
     ?>
 
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-6">
-                <table class="table" id="table_listar">
-                    <thead>
-                        <tr>
-                            <th data-field="id">Codigo Venta</th>
-                            <th data-field="nombre">Cantidad</th>
-                            <th data-field="acciones">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        include_once 'PHP/conexion.php';
-                        $sql = "SELECT DV.ID_VENTA, COUNT(DV.ID_PRODUCTO) AS PRODU FROM detalle_venta DV WHERE NOT EXISTS
-                        (SELECT * FROM venta V WHERE V.ID_VENTA = DV.ID_VENTA)
-                        GROUP BY DV.ID_VENTA";
-                        $result = $conexion->query($sql);
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<tr>';
-                            echo '<td>' . $row['ID_VENTA'] . '</td>';
-                            echo '<td>' . $row['PRODU'] . '</td>';
-                            echo '<td>';
-                            echo '<button class="btn btn-warning btn-detalle-venta" data-id="' . $row['ID_VENTA'] . '">Detalle Productos</button>';
-                            echo '<button class="btn btn-danger btn-eliminar-detalle" data-id="' . $row['ID_VENTA'] . '">Eliminar</button>';
-                        ?>
-                        <?php echo '</td>';
-                            echo '</tr>';
-                        } ?>
-                    </tbody>
-                </table>
-            </div>
+    <div class="container w-full md:w-4/5 xl:w-3/5  mx-auto px-2 p-5">
+        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+            <table id="users" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                <thead>
+                    <tr class="bg-slate-300 bg-opacity-100 text-black">
+                        <th data-priority="1">CODIGO VENTA</th>
+                        <th data-priority="2">NOMBRE PRODUCTO</th>
+                        <th data-priority="3">CANTIDAD</th>
+                        <th data-priority="4">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    include_once 'PHP/conexion.php';
+                    $sql = "SELECT DV.ID_VENTA,P.NOM_PRODUCTO, COUNT(DV.ID_PRODUCTO) AS PRODU FROM detalle_venta DV 
+                    JOIN PRODUCTOS P ON P.CODIGO = DV.ID_PRODUCTO 
+                    WHERE NOT EXISTS (SELECT * FROM venta V WHERE V.ID_VENTA = DV.ID_VENTA) GROUP BY DV.ID_VENTA";
+                    $result = $conexion->query($sql);
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<tr>';
+                        echo '<td>' . $row['ID_VENTA'] . '</td>';
+                        echo '<td>' . $row['NOM_PRODUCTO'] . '</td>';
+                        echo '<td>' . $row['PRODU'] . '</td>';
+                        echo '<td>';
+                        echo '<button class="btn btn-warning btn-detalle-venta" data-id="' . $row['ID_VENTA'] . '">Detalle Productos</button>';
+                        echo '<button class="btn btn-danger btn-eliminar-detalle" data-id="' . $row['ID_VENTA'] . '">Eliminar</button>';
+                    ?>
+                    <?php echo '</td>';
+                        echo '</tr>';
+                    } ?>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -109,6 +93,16 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="JS/main.js" type=" text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script>
 </body>
 
 </html>
