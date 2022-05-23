@@ -41,7 +41,8 @@
                     $total += $row['precio_venta'];
                 };        
                 echo "<td colspan='2' style='text-align:center;'>SubTotal</td>";
-                echo "<td><input id='monto_total' type='hidden' value='$total'></input>"."$".number_format($total, 0, ',', '.')."<br><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal' name='btn_monto_total' id='btn_monto_total'>Generar Pago</button>"."</td>";        
+                /* echo "<td><input id='monto_total' type='hidden' value='$total'></input>"."$".number_format($total, 0, ',', '.')."<br><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal' name='btn_monto_total' id='btn_monto_total'>Generar Pago</button>"."</td>";      */
+                echo "<td><input id='monto_total' type='hidden' value='$total'></input>"."$".number_format($total, 0, ',', '.')."<br><button type='button' class='text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2' data-bs-toggle='modal' data-bs-target='#exampleModal' name='btn_monto_total' id='btn_monto_total'>Generar Pago</button></td>";  
             }
     }
 ?>

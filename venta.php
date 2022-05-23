@@ -40,11 +40,12 @@
                 </div>
                 <div class="card-body">
                     <form>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="txt_codigo_venta" placeholder="Codigo" required autofocus>
+                        <div class="">
+                            <input type="text" id="txt_codigo_venta"  class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Codigo" required autofocus>
                             <input type="hidden" class="form-control" id="txt_venta" placeholder="Venta" disabled>
-                            <button type="button" class="btn btn-success btn_buscar_venta" id="btn_buscar_venta"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button type="button" class="btn btn-danger btn_liberar_venta" id="btn_liberar_venta"><i class="fa-solid fa-delete-left"></i></button>
+                            <br>
+                            <button type="button" class="px-3 py-2 text-xs font-medium text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 btn_buscar_venta" ><i class="fa-solid fa-cart-shopping"></i></button>
+                            <button type="button" class="px-3 py-2 text-xs font-medium text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 btn_liberar_venta" id="btn_liberar_venta"><i class="fa-solid fa-delete-left"></i></button>
                         </div>
                     </form>
                 </div>
